@@ -1,4 +1,4 @@
-package mainpackage;
+package mainprogramm;
 import java.time.LocalDate;
 import java.util.Objects;
 

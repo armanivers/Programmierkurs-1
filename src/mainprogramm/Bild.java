@@ -1,4 +1,4 @@
-package mainpackage;
+package mainprogramm;
 import java.util.Objects;
 
 public class Bild extends Medium{

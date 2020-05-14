@@ -1,4 +1,4 @@
-package mainpackage;
+package mainprogramm;
 public class Main {
 	public static void main(String[] args) {
 		

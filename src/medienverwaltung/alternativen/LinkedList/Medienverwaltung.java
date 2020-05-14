@@ -2,7 +2,7 @@ package medienverwaltung.alternativen.LinkedList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import mainpackage.Medium;
+import mainprogramm.Medium;
 
 // Assoziation/Speicher mittels einer nicht typsicheren LinkedList (Collection) realisiert
 public class Medienverwaltung {
