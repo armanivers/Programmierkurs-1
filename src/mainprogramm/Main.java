@@ -1,10 +1,11 @@
 package mainprogramm;
 public class Main {
 	public static void main(String[] args) {
-		
 
 		//Menu starten
-		Menu.start();
+		Menu m = new Menu();
+		m.start();
+		
 		
 		/*
 		 * Testausgaben fur hashCode und equals

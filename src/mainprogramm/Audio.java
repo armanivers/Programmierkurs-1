@@ -1,4 +1,6 @@
 package mainprogramm;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.Objects;
 
 public class Audio extends Medium {
@@ -27,6 +29,25 @@ public class Audio extends Medium {
 	@Override
 	public int hashCode() {
 		return Objects.hash(super.hashCode(),interpret,dauer);
+	}
+	
+	@Override
+	public void druckeDaten(OutputStream os) {
+		// --> in Medienverwaltung muss uberall System.out stehen??
+		PrintWriter osw = new PrintWriter(os);
+		String ausgabe = "ID = " + super.getId() + " " + super.getTitel() + " von " + this.interpret + " aus "
+				+ super.getJahr() + " Spieldauer: " + this.dauer + " sek.";
+		osw.printf(ausgabe + "\n");
+		osw.flush();
+		
+		/* das funktioniert nicht?
+		try(PrintStream ps = new PrintStream(os);){
+			// osw.write(ausgabe.toCharArray());
+			// osw.flush();
+			// ps.printf(ausgabe);
+		}
+		*/
+
 	}
 	
 	@Override

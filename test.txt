@@ -1,0 +1,4 @@
+ID = 0 "It Means Nothing" von Stereophonics aus 2007 Spieldauer: 229 sek.
+ID = 1 "It Means Nothing" von Stereophonics aus 2010 Spieldauer: 229 sek.
+ID = 2 "Gebaude FB Informatik" aufgenommen im Jahr 2019 in Dortmund
+ID = 3 "Eiffelturm" aufgenommen im Jahr 2020 in Paris

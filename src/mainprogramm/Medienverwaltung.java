@@ -1,5 +1,6 @@
 package mainprogramm;
 
+import java.io.OutputStream;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -18,10 +19,10 @@ public class Medienverwaltung {
 	public void aufnehmen(Medium m) {
 		medien.add(m); 
 		System.out.println("Folgendes Medium wurde aufgenommen:");
-		m.druckeDaten();
+		m.druckeDaten(System.out);
 	}
 
-	public void zeigeMedien() {
+	public void zeigeMedien(OutputStream stream) {
 		if(medien.isEmpty()) return;
 		
 		/*
@@ -50,14 +51,14 @@ public class Medienverwaltung {
 		Collections.sort(medien);
 		Iterator<Medium> it = medien.iterator();
 		while(it.hasNext()) {
-			it.next().druckeDaten();;
+			it.next().druckeDaten(stream);;
 		}
 	}
 
 	public void sucheNeuesMedium() {
 
 		if(medien.isEmpty()) return;
-		if(medien.size() == 1) ((Medium)medien.get(0)).druckeDaten();
+		if(medien.size() == 1) ((Medium)medien.get(0)).druckeDaten(System.out);
 
 		Medium currentMin = (Medium) medien.get(0);
 		
@@ -67,7 +68,7 @@ public class Medienverwaltung {
 			}
 		}
 
-		currentMin.druckeDaten();
+		currentMin.druckeDaten(System.out);
 	}
 
 	//Durschnittserscheinungsjahr

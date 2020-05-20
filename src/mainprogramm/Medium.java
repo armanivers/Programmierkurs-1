@@ -1,4 +1,5 @@
 package mainprogramm;
+import java.io.OutputStream;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -33,6 +34,7 @@ public abstract class Medium implements Comparable<Medium>{
 	}
 	
 	public abstract void druckeDaten();
+	public abstract void druckeDaten(OutputStream stream);
 	
 	@Override
 	public boolean equals(Object obj) {
