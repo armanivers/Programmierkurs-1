@@ -1,9 +1,14 @@
 package mainprogramm;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Audio extends Medium {
+public class Audio extends Medium implements Serializable{
+
+	private static final long serialVersionUID = 2407661975267925078L;
+	
 	private String interpret;
 	private int dauer;
 	
@@ -34,19 +39,19 @@ public class Audio extends Medium {
 	@Override
 	public void druckeDaten(OutputStream os) {
 		// --> in Medienverwaltung muss uberall System.out stehen??
-		PrintWriter osw = new PrintWriter(os);
+		PrintWriter pw = new PrintWriter(os);
 		String ausgabe = "ID = " + super.getId() + " " + super.getTitel() + " von " + this.interpret + " aus "
 				+ super.getJahr() + " Spieldauer: " + this.dauer + " sek.";
-		osw.printf(ausgabe + "\n");
-		osw.flush();
+		pw.printf(ausgabe + "\n");
+		pw.flush();
 		
-		/* das funktioniert nicht?
-		try(PrintStream ps = new PrintStream(os);){
-			// osw.write(ausgabe.toCharArray());
-			// osw.flush();
-			// ps.printf(ausgabe);
-		}
-		*/
+		//try with ressources NUR fur klassen die autoclosable implentieren, hier ist es falsch!
+//		try(PrintStream ps = new PrintStream(os);){
+//			ps.print(ausgabe.toCharArray());
+//			ps.flush();
+//			//ps.printf(ausgabe);
+//		}
+		
 
 	}
 	

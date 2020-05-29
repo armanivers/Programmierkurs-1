@@ -1,9 +1,10 @@
 package mainprogramm;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public abstract class Medium implements Comparable<Medium>{
+public abstract class Medium implements Comparable<Medium>,Serializable{
 	
 	private int id;
 	private static int idCounter = 0;
@@ -15,6 +16,17 @@ public abstract class Medium implements Comparable<Medium>{
 		idCounter++;
 		this.titel = titel;
 		this.jahr = jahr;
+	}
+	
+	//Statische klassenattribute sind direkt vor Benutzung der klasse verfugbar
+	//dh. Zugriff darauf moeglich ohne, dass die eine Instanz der Klasse exisitert/benutzt wird
+	//deswegen statisch
+	public static void update(int newCounter) {
+		idCounter = newCounter;
+	}
+	
+	public int getCount() {
+		return idCounter;
 	}
 	
 	public int alter() {

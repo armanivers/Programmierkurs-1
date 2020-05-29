@@ -1,10 +1,14 @@
 package mainprogramm;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.InputMismatchException;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
@@ -48,8 +52,8 @@ public class Menu {
 		while (running) {
 
 			// Menupunkte auf Konsole anzeigen
-			System.out.printf("1. Audio aufnehmen \n2. Bild aufnehmen \n3. Zeige alle Medien \n4 Medienliste in Datei schreiben \n5. Zeige neues Medium "
-					+ "\n6. Berechne durschnittliches Erscheinungsjahr \n7. Beenden \n \nBitte Menuepunkt waehlen:");
+			System.out.printf("1. Audio aufnehmen \n2. Bild aufnehmen \n3. Zeige alle Medien \n4. Medienliste in Datei schreiben \n5. Medien serialisieren \n6. Medien deserialisieren  \n7. Zeige neues Medium "
+					+ "\n8. Berechne durschnittliches Erscheinungsjahr \n9. Beenden \n \nBitte Menuepunkt waehlen:");
 			try {
 				auswahl = s.nextInt();
 				switch (auswahl) {
@@ -66,23 +70,58 @@ public class Menu {
 					writeToFile();
 					break;
 				case 5:
-					mv.sucheNeuesMedium();
+					save();
 					break;
 				case 6:
-					System.out.println(mv.berechneErscheinungsjahr());
+					load();
 					break;
 				case 7:
+					mv.sucheNeuesMedium();
+					break;
+				case 8:
+					System.out.println(mv.berechneErscheinungsjahr());
+					break;
+				case 9:
 					running = false;
 					break;
 				default:
 				}
 			}catch(InputMismatchException e) {
 				System.out.println("Bitte eine gueltige Zahl eingeben!");
-			} catch (EmptyFilenameException e) {
+			}catch (EmptyFilenameException e) {
 				System.err.println("Dateiname darf nicht leer sein!");
 				//e.printStackTrace();
+			}catch(IOException e) {
+				System.out.println("Feeehler!");
+			}catch(ClassNotFoundException e) {
+				System.out.println("Class not found fehler!");
 			}
 		}
+	}
+	
+	public void load() throws IOException,ClassNotFoundException{
+		try(FileInputStream fis = new FileInputStream(new File("data.ser"));
+				ObjectInputStream ois = new ObjectInputStream(fis);){
+			//Ganze Liste mit Medien deserialisieren
+			LinkedList<Medium> newList = (LinkedList<Medium>) ois.readObject();
+			mv = new Medienverwaltung(newList);
+			Medium.update(newList.size());
+			//Alternativ -> Medienverwaltung deserialisieren
+			//mv = (Medienverwaltung) ois.readObject();
+			System.out.println("ERFOLGREICH");
+		}
+	}
+	
+	public void save () throws IOException {
+		try(FileOutputStream fos = new FileOutputStream(new File("data.ser"));
+				ObjectOutputStream ous = new ObjectOutputStream(fos);){
+			//Ganze Liste mit Medien serialisieren
+			ous.writeObject(mv.getMedien());
+			//Alternativ -> nur Medienverwaltung statt Liste serializieren
+			//ous.writeObject(mv);
+			System.out.println("ERFOLGREICH");
+		}
+
 	}
 
 	public void writeToFile() throws EmptyFilenameException {
@@ -99,9 +138,9 @@ public class Menu {
 				fileName = JOptionPane.showInputDialog(null, "Dateiname eingeben");
 				if(fileName == null) return;
 		}
+		//lieber nicht rekursiv sondern while schlefie (bei zeile 106
 		try (FileOutputStream fos = new FileOutputStream(new File(fileName + ".txt"))) {
 			mv.zeigeMedien(fos);
-
 		} catch (IOException e) {
 			writeToFile();
 			e.printStackTrace();

@@ -15,7 +15,16 @@ public class Medienverwaltung {
 	public Medienverwaltung() {
 		medien = new LinkedList<Medium>();
 	}
-
+	
+	public Medienverwaltung(LinkedList<Medium> medienListe) {
+		medien = medienListe;
+		
+	}
+	
+	public List<Medium> getMedien(){
+		return medien;
+	}
+	
 	public void aufnehmen(Medium m) {
 		medien.add(m); 
 		System.out.println("Folgendes Medium wurde aufgenommen:");

@@ -1,9 +1,13 @@
 package mainprogramm;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Bild extends Medium{
+public class Bild extends Medium implements Serializable{
+
+	private static final long serialVersionUID = -7300990481800973123L;
+	
 	private String ort;
 	
 	public Bild(String titel, int jahr, String ort) {
@@ -31,14 +35,13 @@ public class Bild extends Medium{
 	
 	@Override
 	public void druckeDaten(OutputStream os) {
-		// --> in Medienverwaltung muss uberall System.out stehen??
 		PrintWriter osw = new PrintWriter(os);
 		String ausgabe = "ID = " + super.getId() + " " + super.getTitel() + " aufgenommen im Jahr " + super.getJahr()
 				+ " in " + this.ort;
 		osw.printf(ausgabe + "\n");
 		osw.flush();
 		
-		/* funktioniert nicht in try block? Kommt hier nie eine Exception?
+		/* try with ressources nur wenn klasse (hier stream) autoclosable implementiert
 		try(PrintStream ps = new PrintStream(os);){
 			// osw.write(ausgabe.toCharArray());
 			// osw.flush();
