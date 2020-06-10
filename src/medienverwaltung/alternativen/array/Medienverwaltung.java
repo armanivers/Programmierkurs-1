@@ -1,6 +1,6 @@
 package medienverwaltung.alternativen.array;
 
-import mainprogramm.Medium;
+import mainprogrammConsoleApp.Medium;
 
 // Assoziation/Speicher mittels eines Arrays mit maximaler Speicher von 10 Objekte realisiert
 public class Medienverwaltung {
