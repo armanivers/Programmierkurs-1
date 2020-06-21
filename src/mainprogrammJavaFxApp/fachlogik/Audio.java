@@ -1,6 +1,5 @@
 package mainprogrammJavaFxApp.fachlogik;
 import java.io.OutputStream;
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.Objects;
@@ -17,10 +16,13 @@ public class Audio extends Medium implements Serializable{
 		this.interpret = interpret;
 		this.dauer = dauer;
 	}
-	//Standartkonstruktor?? Aufgabe 2
-//	public Audio() {
-//		
-//	}
+	
+	//Standartkonstruktor
+	public Audio() {
+		super();
+		this.interpret = "";
+		this.dauer=0;
+	}
 	
 	public String getInterpret() {
 		return interpret;
@@ -35,13 +37,6 @@ public class Audio extends Medium implements Serializable{
 	public void setDauer(int dauer) {
 		this.dauer = dauer;
 	}
-	
-	public int getJahr() {
-		return super.getJahr();
-	}
-
-	//Aufgabe 2
-	//fur Attribute aus Medium einfach super und in Medium setter/getter setzen?
 	
 	@Override
 	public boolean equals(Object obj) {

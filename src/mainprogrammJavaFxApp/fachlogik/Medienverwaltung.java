@@ -1,31 +1,37 @@
-package mainprogrammJavaFxApp.fachlogik;
+ package mainprogrammJavaFxApp.fachlogik;
 
 import java.io.OutputStream;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+
+import mainprogrammJavaFxApp.datenhaltung.Dao;
+import mainprogrammJavaFxApp.datenhaltung.IDao;
+import mainprogrammJavaFxApp.exceptions.PersistenzException;
 
 // Assoziation/Speicher mittels einer typsicheren LinkedList (Collection) realisiert
 public class Medienverwaltung {
 
 	private List<Medium> medien;
-
-	public Medienverwaltung() {
+	private IDao dao;
+	
+	public Medienverwaltung(Dao dao) {
+		this.dao = dao;
 		medien = new LinkedList<Medium>();
+		//addTestData();
 	}
 	
-	public Medienverwaltung(LinkedList<Medium> medienListe) {
-		medien = medienListe;
-		
+	public void save() throws PersistenzException{
+		dao.save(medien);
 	}
 	
-	public List<Medium> getMedien(){
-		return medien;
+	public void load() throws PersistenzException{
+		medien = dao.load();
 	}
 	
 	public void aufnehmen(Medium m) {
+		if(m == null) { return; } 
 		medien.add(m); 
 		System.out.println("Folgendes Medium wurde aufgenommen:");
 		m.druckeDaten(System.out);
@@ -67,7 +73,10 @@ public class Medienverwaltung {
 	public Medium sucheNeuesMedium() {
 
 		if(medien.isEmpty()) return null;
-		if(medien.size() == 1) ((Medium)medien.get(0)).druckeDaten(System.out);
+		if(medien.size() == 1) {
+			((Medium)medien.get(0)).druckeDaten(System.out);
+			return medien.get(0);
+		}
 
 		Medium currentMin = (Medium) medien.get(0);
 		
@@ -99,5 +108,7 @@ public class Medienverwaltung {
 		Iterator<Medium> it = medien.iterator();
 		return it;
 	}
+	
+	
 
 }

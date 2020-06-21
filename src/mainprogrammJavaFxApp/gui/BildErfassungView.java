@@ -17,14 +17,21 @@ import mainprogrammJavaFxApp.fachlogik.Bild;
 public class BildErfassungView extends Stage {
 
 	private Bild bild;
+	private Controller controller;
 	
-	public BildErfassungView(Stage parent, Bild bild) {
+	TextField titelTf;
+	TextField ortTf;
+	TextField jahrTf;
+	
+	public BildErfassungView(Stage parent,Controller controller, Bild bild) {
+		super();
+		this.controller = controller;
 		this.bild = bild;
 		this.initOwner(parent);
 		this.initModality(Modality.WINDOW_MODAL);
 	}
 
-	public void showView() {
+	public Bild showView() {
 
 		GridPane gp = new GridPane();
 		// Aussenabstand von Pane allgemein
@@ -38,22 +45,34 @@ public class BildErfassungView extends Stage {
 		Label ortLabel = new Label("Ort:");
 		Label jahrLabel = new Label("Aufnahmejahr:");
 
-		TextField titelTf = new TextField(bild.getTitel());
-		TextField ortTf = new TextField(bild.getOrt());
-		TextField jahrTf = new TextField(bild.getJahr()+"");
-
+		if(bild != null) {
+			titelTf = new TextField(bild.getTitel());
+			ortTf = new TextField(bild.getOrt());
+			jahrTf = new TextField(bild.getJahr()+"");
+		}
+		
 		Button neu = new Button("Neu");
 		
 		neu.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				bild.setTitel(titelTf.getText());
-				bild.setOrt(ortTf.getText());
-				//Parse exception bachten?? (falls user keine zahl eingibt?)
-				bild.setJahr(Integer.parseInt(jahrTf.getText()));
+				try {
+					bild.setJahr(Integer.parseInt(jahrTf.getText()));
+					bild.setTitel(titelTf.getText());
+					bild.setOrt(ortTf.getText());
+					controller.aufnehmenMedium(bild);
+					close();
+				} catch(NumberFormatException f) {
+					
+				}
 			}
 		});
 		
 		Button abbrechen = new Button("Abbrechen");
+		abbrechen.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				close();
+			}
+		});
 
 		gp.add(titelLabel, 0, 0);
 		gp.add(ortLabel, 0, 1);
@@ -71,8 +90,6 @@ public class BildErfassungView extends Stage {
 		gp.add(neu, 1, 3);
 		gp.add(abbrechen, 2, 3);
 
-		gp.setGridLinesVisible(true);
-
 		GridPane.setHalignment(neu, HPos.RIGHT);
 		GridPane.setHalignment(abbrechen, HPos.LEFT);
 
@@ -84,6 +101,6 @@ public class BildErfassungView extends Stage {
 		this.setScene(scene);
 		this.setTitle("BildErfassung");
 		this.show();
-
+		return bild;
 	}
 }

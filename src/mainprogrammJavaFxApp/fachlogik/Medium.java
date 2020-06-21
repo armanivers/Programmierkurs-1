@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public abstract class Medium implements Comparable<Medium>,Serializable{
+
+	private static final long serialVersionUID = -4460780330614735434L;
 	
 	private int id;
 	private static int idCounter = 0;
@@ -16,6 +18,14 @@ public abstract class Medium implements Comparable<Medium>,Serializable{
 		idCounter++;
 		this.titel = titel;
 		this.jahr = jahr;
+	}
+	
+	//Defaultkonstruktor
+	public Medium() {
+		this.id = idCounter;
+		idCounter++;
+		this.titel="";
+		this.jahr=0;
 	}
 	
 	//Statische klassenattribute sind direkt vor Benutzung der klasse verfugbar

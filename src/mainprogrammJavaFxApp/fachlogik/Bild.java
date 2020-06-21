@@ -14,10 +14,12 @@ public class Bild extends Medium implements Serializable{
 		super(titel,jahr);
 		this.ort = ort;
 	}
-	//Standartkonstruktor?? Aufgabe 2
-//	public Bild() {
-//		
-//	}
+
+	//Standartkonstruktor
+	public Bild() {
+		super();
+		this.ort = "";
+	}
 	
 	public String getOrt() {
 		return ort;

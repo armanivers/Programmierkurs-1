@@ -17,15 +17,23 @@ import mainprogrammJavaFxApp.fachlogik.Audio;
 public class AudioErfassungView extends Stage{
 	
 	private Audio audio;
+	private Controller controller;
 	
-	public AudioErfassungView(Stage parent, Audio audio) {
+	TextField titelTf;
+	TextField interpretTf;
+	TextField jahrTf;
+	TextField dauerTf;
+	
+	public AudioErfassungView(Stage parent, Controller controller,Audio audio) {
+		super();
+		this.controller = controller;
 		this.audio = audio;
 		this.initOwner(parent);
 		this.initModality(Modality.WINDOW_MODAL);
 	}
 	
-	//Modal -> bleibt im vordergrund, rest kann man nicht benutzen
-	public void showView()  {
+	//Modal -> bleibt im vordergrund, restliche Fenster kann man nicht benutzen
+	public Audio showView()  {
 		
 		GridPane gp = new GridPane();
 		//Aussenabstand von Pane allgemein
@@ -40,24 +48,40 @@ public class AudioErfassungView extends Stage{
 		Label jahrLabel = new Label("Aufnahmejahr:");
 		Label dauerLabel = new Label("Dauer:");
 		
-		TextField titelTf = new TextField(audio.getTitel());
-		TextField interpretTf = new TextField(audio.getInterpret());
-		TextField jahrTf = new TextField(audio.getJahr()+"");
-		TextField dauerTf = new TextField(audio.getDauer()+"");
+		if(audio != null) {
+			titelTf = new TextField(audio.getTitel());
+			interpretTf = new TextField(audio.getInterpret());
+			jahrTf = new TextField(audio.getJahr()+"");
+			dauerTf = new TextField(audio.getDauer()+"");
+		}
+		
+		Label warnung = new Label("");
 		
 		Button neu = new Button("Neu");
 		neu.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
 			public void handle(ActionEvent e) {
-				audio.setTitel(titelTf.getText());
-				audio.setInterpret(interpretTf.getText());
-				//Parse exception bachten?? (falls user keine zahl eingibt?)
-				audio.setJahr(Integer.parseInt(jahrTf.getText()));
-				audio.setDauer(Integer.parseInt(dauerTf.getText()));
+				try {
+					audio.setJahr(Integer.parseInt(jahrTf.getText()));
+					audio.setDauer(Integer.parseInt(dauerTf.getText()));
+					audio.setTitel(titelTf.getText());
+					audio.setInterpret(interpretTf.getText());
+					controller.aufnehmenMedium(audio);
+					close();
+				}
+				catch(NumberFormatException f) {
+					warnung.setText("error");
+				}
 			}
 		});
 		
 		Button abbrechen = new Button("Abbrechen");
-		
+		abbrechen.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				close();
+			}
+		});
 		gp.add(titelLabel, 0, 0);
 		gp.add(interpretLabel, 0, 1);
 		gp.add(jahrLabel, 0, 2);
@@ -89,6 +113,6 @@ public class AudioErfassungView extends Stage{
 		this.setScene(scene);
 		this.setTitle("AudioErfassung");
 		this.show();
-		
+		return audio;
 	}
 }
