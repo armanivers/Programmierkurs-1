@@ -52,28 +52,38 @@ public class BildErfassungView extends Stage {
 		}
 		
 		Button neu = new Button("Neu");
-		
-		neu.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				try {
-					bild.setJahr(Integer.parseInt(jahrTf.getText()));
-					bild.setTitel(titelTf.getText());
-					bild.setOrt(ortTf.getText());
-					controller.aufnehmenMedium(bild);
-					close();
-				} catch(NumberFormatException f) {
-					
-				}
+		/*
+		 * neu.setOnAction(new EventHandler<ActionEvent>() { public void
+		 * handle(ActionEvent e) { try {
+		 * bild.setJahr(Integer.parseInt(jahrTf.getText()));
+		 * bild.setTitel(titelTf.getText()); bild.setOrt(ortTf.getText());
+		 * controller.aufnehmenMedium(bild); close(); } catch(NumberFormatException f) {
+		 * 
+		 * } } });
+		 */
+		neu.setOnAction(e -> {
+			try {
+				bild.setJahr(Integer.parseInt(jahrTf.getText()));
+				bild.setTitel(titelTf.getText());
+				bild.setOrt(ortTf.getText());
+				controller.aufnehmenMedium(bild);
+				close();
+			} catch (NumberFormatException f) {
+
 			}
 		});
 		
 		Button abbrechen = new Button("Abbrechen");
+		/*
 		abbrechen.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				close();
 			}
 		});
-
+		*/
+		
+		abbrechen.setOnAction(e -> close());
+		
 		gp.add(titelLabel, 0, 0);
 		gp.add(ortLabel, 0, 1);
 		gp.add(jahrLabel, 0, 2);

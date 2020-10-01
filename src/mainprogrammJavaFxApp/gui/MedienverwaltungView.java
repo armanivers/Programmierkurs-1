@@ -54,6 +54,7 @@ public class MedienverwaltungView extends Application{
 		
 		//Untermenues von "Datei"
 		MenuItem laden = new MenuItem("Laden");
+		/*
 		laden.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				try {
@@ -63,8 +64,19 @@ public class MedienverwaltungView extends Application{
 				}
 			}
 		});
+		*/
+		
+		laden.setOnAction(e -> {
+			try {
+				controller.load();
+			} catch(PersistenzException p) {
+				
+			}
+		}
+		);
 		
 		MenuItem speichern = new MenuItem("Speichern");
+		/*
 		laden.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				try {
@@ -74,13 +86,26 @@ public class MedienverwaltungView extends Application{
 				}
 			}
 		});
+		*/
+		
+		speichern.setOnAction(e -> {
+			try {
+				controller.save();
+			} catch (PersistenzException p) {
+
+			}
+		});
 		
 		MenuItem medienlisteInDatei = new MenuItem("Medienliste in Datei");
+		/*
 		medienlisteInDatei.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				controller.medienlisteInDatei();
 			}
 		});
+		*/
+		
+		medienlisteInDatei.setOnAction(e -> controller.medienlisteInDatei());
 		
 		MenuItem beenden = new MenuItem("Beenden");
 		beenden.setOnAction(new EventHandler<ActionEvent>() {
@@ -95,17 +120,27 @@ public class MedienverwaltungView extends Application{
 		Menu medium = new Menu("Medium");
 		//Untermenues von "Medium"
 		MenuItem audioNeu = new MenuItem("Audio neu");
+		/*
 		audioNeu.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				controller.AudioNeu();
 			}
 		});
+		*/
+		
+		audioNeu.setOnAction(e -> controller.AudioNeu());
+		
 		MenuItem bildNeu = new MenuItem("Bild neu");
+		/*
 		bildNeu.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				controller.BildNeu();
 			}
 		});
+		*/
+		
+		bildNeu.setOnAction(e -> controller.BildNeu());
+		
 		//Menues hinzufuegen
 		medium.getItems().addAll(audioNeu,bildNeu);
 		
@@ -113,17 +148,27 @@ public class MedienverwaltungView extends Application{
 		Menu anzeige = new Menu("Anzeige");
 		//Untermenues von "Anzeige"
 		MenuItem erscheinungsJahr = new MenuItem("Erscheinungsjahr");
+		/*
 		erscheinungsJahr.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				controller.erscheinungsjahr();
 			}
 		});
+		*/
+		
+		erscheinungsJahr.setOnAction(e -> controller.erscheinungsjahr());
+		
 		MenuItem neustesMedium = new MenuItem("Neustes Medium");
+		/*
 		neustesMedium.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				controller.neustesMedium();
 			}
 		});
+		*/
+		
+		neustesMedium.setOnAction(e -> controller.neustesMedium());
+		
 		//Menues hinzufuegen
 		anzeige.getItems().addAll(erscheinungsJahr,neustesMedium);
 		

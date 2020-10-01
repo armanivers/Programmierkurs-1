@@ -58,6 +58,7 @@ public class AudioErfassungView extends Stage{
 		Label warnung = new Label("");
 		
 		Button neu = new Button("Neu");
+		/*
 		neu.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -74,14 +75,36 @@ public class AudioErfassungView extends Stage{
 				}
 			}
 		});
+		*/
+
+		neu.setOnAction(e -> {
+			try {
+				audio.setJahr(Integer.parseInt(jahrTf.getText()));
+				audio.setDauer(Integer.parseInt(dauerTf.getText()));
+				audio.setTitel(titelTf.getText());
+				audio.setInterpret(interpretTf.getText());
+				controller.aufnehmenMedium(audio);
+				close();
+			} catch (NumberFormatException f) {
+				warnung.setText("error");
+			}
+
+		});
+				
+				
 		
 		Button abbrechen = new Button("Abbrechen");
+		/*
 		abbrechen.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 				close();
 			}
 		});
+		*/
+		
+		abbrechen.setOnAction(e -> close());
+		
 		gp.add(titelLabel, 0, 0);
 		gp.add(interpretLabel, 0, 1);
 		gp.add(jahrLabel, 0, 2);
