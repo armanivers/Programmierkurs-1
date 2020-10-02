@@ -11,8 +11,8 @@ public class Bottle {
 		this.l = l;
 	}
 	
-	public void printLabel() {
-		System.out.println(l.toString());
+	public String printLabel() {
+		return l.toString();
 	}
 	
 }

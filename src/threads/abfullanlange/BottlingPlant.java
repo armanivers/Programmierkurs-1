@@ -1,22 +1,17 @@
 package threads.abfullanlange;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 public class BottlingPlant implements Runnable{
 
 	private Conveyor c;
-	private Queue<Bottle> getraenke;
 	private int time;
 	
 	public BottlingPlant(Conveyor c,int time) {
 		this.c = c;
-		getraenke = new LinkedList<Bottle>();
 	}
 	
 	@Override
 	public void run() {
-		while(!Thread.interrupted()) {
+		while(!Thread.currentThread().isInterrupted()) {
 			try {
 				synchronized(c) {
 					while(c.isOverloaded()) {
@@ -24,20 +19,17 @@ public class BottlingPlant implements Runnable{
 						c.wait();
 					}
 					c.load(new Bottle());
+					System.out.println("Abfuellanlage: Neue Flasch abgefuellt");
 					c.notifyAll();
-					System.out.println("Abfuellanlange: Neue Flasch abgefuellt");
 				}
 				//wichtig sleep ausserhalb von synchronized bereich, sonst behaelt er den schluessel (c)
 				Thread.sleep(time);
 				//kann bei wake/sleep geworfen werden
 			} catch(InterruptedException e) {
-				break;
+				e.printStackTrace();
+				Thread.currentThread().interrupt();
 			}
 		}
 	}
 	
-	public void addBottle(Bottle b) {
-		getraenke.add(b);
-	}
-
 }

@@ -18,6 +18,9 @@ public class Conveyor {
 	}
 	
 	public Bottle withdraw() {
+		if(isEmpty()) {
+			return null;
+		}
 		return warteschlange.poll();
 	}
 	
