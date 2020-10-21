@@ -76,18 +76,15 @@ public class Medienverwaltung {
 		//Lambda mit comperator, statt in klasse zu implementieren
 		Collections.sort(medien,(Medium m1,Medium m2) -> Integer.compare(m1.getJahr(), m2.getJahr()));
 		
-		//Lambda Variante
-		//Stream.of(medien).sorted((Medium m1, Medium m2) -> Integer.compare(m1.getJahr(),m2.getJahr()));
-		
-		//wie gehe ich alle elemente aus der Liste medien durch, statt es als ein listenobjekt zu betrachten?
-		//Stream.of(medien).sorted().forEach(m -> System.out.println(m));
-
-		//Wie mache ich foreach UND sort, einfach foreach dahinter geht nicht
-		System.out.println("----------------Sortiervariante 1----------------");
-		
+		//genau wie Collection.sort()
 		medien.sort((m1, m2) -> Integer.compare(m1.getJahr(), m2.getJahr()));
 		
-		//medium liegt schon als collection vor
+		//wie gehe ich alle elemente aus der Liste medien durch, statt es als ein listenobjekt zu betrachten?
+		Stream.of(medien).sorted().forEach(m -> System.out.println(m));
+
+		System.out.println("----------------Sortiervariante 1----------------");
+		
+		//medium liegt schon als stream vor
 		medien.stream().sorted(Medium::compareTo).forEach((m->m.druckeDaten(stream)));
 		
 		medien.stream().sorted( (m1,m2) -> Integer.compare(m1.getJahr(), m2.getJahr())).forEach(m->m.druckeDaten()); 

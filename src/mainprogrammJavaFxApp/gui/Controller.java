@@ -93,7 +93,6 @@ public class Controller{
 	
 	public void neustesMedium() {
 		Medium medium = mv.sucheNeuesMedium();
-		System.out.println("TEEEEST");
 		MessageView.create(stage, "Neustes Medium", medium.toString()).showView();
 	}
 	

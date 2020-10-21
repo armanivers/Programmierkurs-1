@@ -18,6 +18,8 @@ import mainprogrammJavaFxApp.fachlogik.Medienverwaltung;
 public class MedienverwaltungView extends Application{
 
 	private Controller controller;
+	//benutzt fuer knopf "beenden"
+	private Stage mainStage;
 	
 	public static void main(String[] args) {
 		launch();
@@ -39,6 +41,8 @@ public class MedienverwaltungView extends Application{
 		bp.setCenter(lv);
 		
 		Scene scene = new Scene(bp,400,300);
+		//benutzt fuer knopf "beenden"
+		mainStage = primaryStage;
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Hauptfenster");
 		primaryStage.show();
@@ -110,7 +114,7 @@ public class MedienverwaltungView extends Application{
 		MenuItem beenden = new MenuItem("Beenden");
 		beenden.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				//close();
+				mainStage.close();
 			}
 		});
 		//Menues hinzufuegen
